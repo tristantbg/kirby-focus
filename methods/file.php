@@ -31,7 +31,7 @@ file::$methods['focusCrop'] = function($file, $scale, $height = null, $params = 
     }
   }
 
-  $params['width'] = $width;
+  $params['width'] = $height;
   $params['scale'] = $scale;
 
   // if no height is given use width to crop a square
