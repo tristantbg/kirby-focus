@@ -14,7 +14,7 @@ file::$methods['focusY'] = function($file) {
 /**
  * Custom file method 'focusCrop'
  */
-file::$methods['focusCrop'] = function($file, $width, $height = null, $params = array()) {
+file::$methods['focusCrop'] = function($file, $scale, $height = null, $params = array()) {
 
   // don't scale thumbs further down
   if ($file->original()) {    
@@ -32,6 +32,7 @@ file::$methods['focusCrop'] = function($file, $width, $height = null, $params = 
   }
 
   $params['width'] = $width;
+  $params['scale'] = $scale;
 
   // if no height is given use width to crop a square
   $params['height'] = ($height) ? $height : $width;
@@ -59,7 +60,7 @@ file::$methods['focusCrop'] = function($file, $width, $height = null, $params = 
   $params['focusY'] = focus::coordinates($file, 'y');
 
   // create base filename
-  $params['filename'] = '{safeName}-' . $params['width'] . 'x' . $params['height'] . '-' . $params['focusX']*100 . '-' . $params['focusY']*100;
+  $params['filename'] = '{safeName}-' . $params['scale'] . 'x-' . $params['height'] . 'w-' . $params['focusX']*100 . '-' . $params['focusY']*100;
 
   // quality
   if (isset($params['quality']) && is_numeric($params['quality'])) {

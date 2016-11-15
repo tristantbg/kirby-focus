@@ -8,7 +8,7 @@ thumb::$drivers['im'] = function($thumb) {
 
   $command[] = isset($thumb->options['bin']) ? $thumb->options['bin'] : 'convert';
   $command[] = '"' . $thumb->source->root() . '"';
-  $command[] = '-strip';
+  //$command[] = '-strip';
 
   if ($thumb->options['interlace']) {
     $command[] = '-interlace line';
@@ -30,7 +30,7 @@ thumb::$drivers['im'] = function($thumb) {
     // crop original image with thumb ratio and resize it to thumb dimensions
     $command[] = '-crop ' . $focusCropValues['width'] . 'x' . $focusCropValues['height'] . '+' . $focusCropValues['x1'] . '+' . $focusCropValues['y1'];
     $command[] =  '^';
-    $command[] = '-resize ' . $thumb->options['width'] . 'x' . $thumb->options['height'];
+    $command[] = '-resize ' . $thumb->options['height'] . 'x' . $thumb->options['height'];
   }
   else if ($thumb->options['crop']) {
     $command[] = '-resize';
@@ -39,7 +39,7 @@ thumb::$drivers['im'] = function($thumb) {
   } 
   else {
     $dimensions = clone $thumb->source->dimensions();
-    $dimensions->fitWidthAndHeight($thumb->options['width'], $thumb->options['height'], $thumb->options['upscale']);
+    $dimensions->fitWidthAndHeight($focusCropValues['width'], $focusCropValues['height'], $thumb->options['upscale']);
     $command[] = '-resize';
     $command[] = $dimensions->width() . 'x' . $dimensions->height() . '!';
   }
